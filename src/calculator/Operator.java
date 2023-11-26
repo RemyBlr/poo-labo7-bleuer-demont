@@ -12,6 +12,16 @@ abstract class Operator
   static Division division = new Division();
   static Enter enter = new Enter();
   static Number[] numbers = new Number[10];
+  static Point point = new Point();
+  static ClearEntry clearEntry = new ClearEntry();
+  static Clear clear = new Clear();
+  static Recpirocal recpirocal = new Recpirocal();
+  static Opposite opposite = new Opposite();
+  static squareRoot squareRoot = new squareRoot();
+  static Square square = new Square();
+  static Backspace backspace = new Backspace();
+  static MemoryStore memoryStore = new MemoryStore();
+  static MemoryRecall memoryRecall = new MemoryRecall();
 
   // Initialization of the Number instances
   static {
@@ -19,9 +29,6 @@ abstract class Operator
       numbers[i] = new Number(i);
     }
   }
-
-  static Point point = new Point();
-
 
   abstract void execute(State state);
 }
@@ -94,3 +101,85 @@ class Point extends Operator
 
   }
 }
+
+class ClearEntry extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class Clear extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class Recpirocal extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class Opposite extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class squareRoot extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class Square extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class Backspace extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class MemoryStore extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
+class MemoryRecall extends Operator
+{
+  @Override
+  void execute(State state)
+  {
+    // TODO
+  }
+}
+
