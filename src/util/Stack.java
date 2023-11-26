@@ -27,6 +27,11 @@ public class Stack<T> implements Iterable<T> {
     private Node<T> top;
     private int size;
 
+    public void clear() {
+        top = null;
+        size = 0;
+    }
+
     // Node class for holding data and linking nodes
     private static class Node<T> {
         T data;

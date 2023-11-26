@@ -6,12 +6,14 @@ public class State {
     private double currentValue;
     private Stack<Double> stack;
     private boolean isError;
+    private double memory;
 
     // Constructeur, getters, setters, etc.
     public State(){
         this.currentValue = 0;
         this.stack = new Stack<>();
         this.isError = false;
+        this.memory = 0;
     }
 
     public State(double currentValue, Stack<Double> stack){
@@ -28,6 +30,13 @@ public class State {
         this.currentValue = currentValue;
     }
 
+    public double getMemory() {
+        return memory;
+    }
+
+    public void setMemory(double memory) {
+        this.memory = memory;
+    }
 
     public Stack<Double> getStack() {
         return stack;
@@ -47,5 +56,8 @@ public class State {
 
     public void clear() {
         // Logique pour réinitialiser l'état
+        this.currentValue = 0;
+        this.stack.clear();
+        this.isError = false;
     }
 }

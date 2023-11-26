@@ -29,7 +29,7 @@ abstract class Operator {
         }
     }
 
-    void executeBinaryOperation(State state, BinaryOperation operation) {
+    void binaryOperation(State state, BinaryOperation operation) {
         Stack<Double> a = state.getStack();
         if (a.size() >= 2) {
             // Careful: the first operand is the second popped from the stack
@@ -45,37 +45,78 @@ abstract class Operator {
         double apply(double operand1, double operand2);
     }
 
+    void unaryOperation(State state, UnaryOperation operation) {
+        double operand = state.getCurrentValue();
+        double result = operation.apply(operand);
+        state.setCurrentValue(result);
+    }
+
+    interface UnaryOperation {
+        double apply(double operand);
+    }
+
     abstract void execute(State state);
 }
 
+// ------------------ Binary operations ------------------
 class Addition extends Operator {
     @Override
     void execute(State state) {
-        executeBinaryOperation(state, (operand1, operand2) -> operand1 + operand2);
+        binaryOperation(state, (operand1, operand2) -> operand1 + operand2);
     }
 }
 
 class Substraction extends Operator {
     @Override
     void execute(State state) {
-        executeBinaryOperation(state, (operand1, operand2) -> operand1 - operand2);
+        binaryOperation(state, (operand1, operand2) -> operand1 - operand2);
     }
 }
 
 class Multiplication extends Operator {
     @Override
     void execute(State state) {
-        executeBinaryOperation(state, (operand1, operand2) -> operand1 * operand2);
+        binaryOperation(state, (operand1, operand2) -> operand1 * operand2);
     }
 }
 
 class Division extends Operator {
     @Override
     void execute(State state) {
-        executeBinaryOperation(state, (operand1, operand2) -> operand1 / operand2);
+        binaryOperation(state, (operand1, operand2) -> operand1 / operand2);
     }
 }
 
+// ------------------ Unary operations ------------------
+class Recpirocal extends Operator {
+    @Override
+    void execute(State state) {
+        unaryOperation(state, operand -> 1 / operand);
+    }
+}
+
+class Opposite extends Operator {
+    @Override
+    void execute(State state) {
+        unaryOperation(state, operand -> -operand);
+    }
+}
+
+class squareRoot extends Operator {
+    @Override
+    void execute(State state) {
+        unaryOperation(state, Math::sqrt);
+    }
+}
+
+class Square extends Operator {
+    @Override
+    void execute(State state) {
+        unaryOperation(state, operand -> operand * operand);
+    }
+}
+
+// ------------------ Numbers ------------------
 class Number extends Operator {
     private int value;
 
@@ -89,6 +130,38 @@ class Number extends Operator {
     }
 }
 
+// ------------------ Clear ------------------
+class ClearEntry extends Operator {
+    @Override
+    void execute(State state) {
+        state.setCurrentValue(0);
+    }
+}
+
+class Clear extends Operator {
+    @Override
+    void execute(State state) {
+        state.clear();
+    }
+}
+
+// ------------------ Memory ------------------
+class MemoryStore extends Operator {
+    @Override
+    void execute(State state) {
+        state.setMemory(state.getCurrentValue());
+    }
+}
+
+class MemoryRecall extends Operator {
+    @Override
+    void execute(State state) {
+        if (state.getMemory() != 0) // je sais pas si besoin, si envie de stocker 0 pourquoi pas
+            state.setCurrentValue(state.getMemory());
+    }
+}
+
+// ------------------ Misc ------------------
 class Enter extends Operator {
     @Override
     void execute(State state) {
@@ -104,66 +177,9 @@ class Point extends Operator {
     }
 }
 
-class ClearEntry extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class Clear extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class Recpirocal extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class Opposite extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class squareRoot extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class Square extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
 class Backspace extends Operator {
     @Override
     void execute(State state) {
-        // TODO
+
     }
 }
-
-class MemoryStore extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
-class MemoryRecall extends Operator {
-    @Override
-    void execute(State state) {
-        // TODO
-    }
-}
-
