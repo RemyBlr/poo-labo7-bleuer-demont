@@ -7,6 +7,7 @@ public class State {
     private Stack<Double> stack;
     private boolean isError;
     private double memory;
+    private boolean isOperationPerformed;
 
     // Constructeur, getters, setters, etc.
     public State(){
@@ -36,6 +37,14 @@ public class State {
 
     public void setMemory(double memory) {
         this.memory = memory;
+    }
+
+    public boolean isOperationPerformed() {
+        return isOperationPerformed;
+    }
+
+    public void setOperationPerformed(boolean operationPerformed) {
+        this.isOperationPerformed = operationPerformed;
     }
 
     public Stack<Double> getStack() {

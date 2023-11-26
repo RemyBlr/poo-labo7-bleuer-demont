@@ -31,12 +31,13 @@ abstract class Operator {
 
     void binaryOperation(State state, BinaryOperation operation) {
         Stack<Double> a = state.getStack();
-        if (a.size() >= 2) {
+        if (!a.isEmpty()) {
             // Careful: the first operand is the second popped from the stack
+            double operand1 = state.getCurrentValue();
             double operand2 = a.pop();
-            double operand1 = a.pop();
             double result = operation.apply(operand1, operand2);
-            a.push(result);
+            state.setCurrentValue(result);
+            state.setOperationPerformed(true);
         } else
             state.setError(true);
     }
@@ -49,6 +50,7 @@ abstract class Operator {
         double operand = state.getCurrentValue();
         double result = operation.apply(operand);
         state.setCurrentValue(result);
+        state.setOperationPerformed(true);
     }
 
     interface UnaryOperation {
@@ -126,6 +128,11 @@ class Number extends Operator {
 
     @Override
     void execute(State state) {
+        if (state.isOperationPerformed()) {
+            state.getStack().push(state.getCurrentValue());
+            state.setCurrentValue(0);
+            state.setOperationPerformed(false);
+        }
         state.setCurrentValue(state.getCurrentValue() * 10 + value);
     }
 }
