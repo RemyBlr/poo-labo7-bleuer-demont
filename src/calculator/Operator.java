@@ -187,6 +187,9 @@ class Point extends Operator {
 class Backspace extends Operator {
     @Override
     void execute(State state) {
-
+        double currentValue = state.getCurrentValue();
+        double remainder = currentValue % 10;
+        double newResult = (currentValue - remainder) / 10;
+        state.setCurrentValue(newResult);
     }
 }
