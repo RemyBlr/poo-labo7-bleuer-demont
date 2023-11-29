@@ -37,7 +37,7 @@ public class JCalculator extends JFrame
   {
     // Modifier une zone de texte, JTextField.setText(string nom)
     // Modifier un composant liste, JList.setListData(Object[] tableau)
-    jNumber.setText("" + state.getCurrentValue());
+    jNumber.setText(state.getCurrentValue());
     jStack.setListData(state.getStack().toArrayOfString());
   }
 

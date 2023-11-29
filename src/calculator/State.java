@@ -3,39 +3,39 @@ package calculator;
 import util.Stack;
 
 public class State {
-    private double currentValue;
-    private Stack<Double> stack;
+    private String currentValue;
+    private Stack<String> stack;
     private boolean isError;
-    private double memory;
+    private String memory;
     private boolean isOperationPerformed;
 
     // Constructeur, getters, setters, etc.
     public State(){
-        this.currentValue = 0;
+        this.currentValue = "0";
         this.stack = new Stack<>();
         this.isError = false;
-        this.memory = 0;
+        this.memory = "0";
     }
 
-    public State(double currentValue, Stack<Double> stack){
+    public State(String currentValue, Stack<String> stack){
         this.currentValue = currentValue;
         this.stack = stack;
         this.isError = false;
     }
 
-    double getCurrentValue(){
+    String getCurrentValue(){
         return currentValue;
     }
 
-    void setCurrentValue(double currentValue){
+    void setCurrentValue(String currentValue){
         this.currentValue = currentValue;
     }
 
-    public double getMemory() {
+    public String getMemory() {
         return memory;
     }
 
-    public void setMemory(double memory) {
+    public void setMemory(String memory) {
         this.memory = memory;
     }
 
@@ -47,11 +47,11 @@ public class State {
         this.isOperationPerformed = operationPerformed;
     }
 
-    public Stack<Double> getStack() {
+    public Stack<String> getStack() {
         return stack;
     }
 
-    public void setStack(Stack<Double> stack) {
+    public void setStack(Stack<String> stack) {
         this.stack = stack;
     }
 
@@ -65,7 +65,7 @@ public class State {
 
     public void clear() {
         // Logique pour réinitialiser l'état
-        this.currentValue = 0;
+        this.currentValue = "0";
         this.stack.clear();
         this.isError = false;
     }

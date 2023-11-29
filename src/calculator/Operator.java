@@ -25,18 +25,17 @@ abstract class Operator {
     // Initialization of the Number instances
     static {
         for (int i = 0; i < 10; i++) {
-            numbers[i] = new Number(i);
+            numbers[i] = new Number(String.valueOf(i));
         }
     }
 
     void binaryOperation(State state, BinaryOperation operation) {
-        Stack<Double> a = state.getStack();
+        Stack<String> a = state.getStack();
         if (!a.isEmpty()) {
-            // Careful: the first operand is the second popped from the stack
-            double operand1 = state.getCurrentValue();
-            double operand2 = a.pop();
+            double operand1 = Double.parseDouble(state.getCurrentValue());
+            double operand2 = Double.parseDouble(a.pop());
             double result = operation.apply(operand1, operand2);
-            state.setCurrentValue(result);
+            state.setCurrentValue(String.valueOf(result));
             state.setOperationPerformed(true);
         } else
             state.setError(true);
@@ -47,9 +46,9 @@ abstract class Operator {
     }
 
     void unaryOperation(State state, UnaryOperation operation) {
-        double operand = state.getCurrentValue();
+        double operand = Double.parseDouble(state.getCurrentValue());
         double result = operation.apply(operand);
-        state.setCurrentValue(result);
+        state.setCurrentValue(String.valueOf(result));
         state.setOperationPerformed(true);
     }
 
@@ -85,7 +84,7 @@ class Multiplication extends Operator {
 class Division extends Operator {
     @Override
     void execute(State state) {
-        binaryOperation(state, (operand1, operand2) -> operand1 / operand2);
+        binaryOperation(state, (operand1, operand2) -> operand2 / operand1);
     }
 }
 
@@ -120,9 +119,9 @@ class Square extends Operator {
 
 // ------------------ Numbers ------------------
 class Number extends Operator {
-    private int value;
+    private String value;
 
-    public Number(int value) {
+    public Number(String value) {
         this.value = value;
     }
 
@@ -130,10 +129,14 @@ class Number extends Operator {
     void execute(State state) {
         if (state.isOperationPerformed()) {
             state.getStack().push(state.getCurrentValue());
-            state.setCurrentValue(0);
+            state.setCurrentValue("0");
             state.setOperationPerformed(false);
         }
-        state.setCurrentValue(state.getCurrentValue() * 10 + value);
+
+        if (state.getCurrentValue().equals("0"))
+            state.setCurrentValue(value);
+        else
+            state.setCurrentValue(state.getCurrentValue() + value);
     }
 }
 
@@ -141,7 +144,7 @@ class Number extends Operator {
 class ClearEntry extends Operator {
     @Override
     void execute(State state) {
-        state.setCurrentValue(0);
+        state.setCurrentValue("0");
     }
 }
 
@@ -163,7 +166,7 @@ class MemoryStore extends Operator {
 class MemoryRecall extends Operator {
     @Override
     void execute(State state) {
-        if (state.getMemory() != 0) // je sais pas si besoin, si envie de stocker 0 pourquoi pas
+        if (state.getMemory() != "0") // je sais pas si besoin, si envie de stocker 0 pourquoi pas
             state.setCurrentValue(state.getMemory());
     }
 }
@@ -172,24 +175,37 @@ class MemoryRecall extends Operator {
 class Enter extends Operator {
     @Override
     void execute(State state) {
+        if (state.getCurrentValue() == "0")
+            return;
+
         state.getStack().push(state.getCurrentValue());
-        state.setCurrentValue(0);
+        state.setCurrentValue("0");
+        state.setOperationPerformed(false);
     }
 }
 
 class Point extends Operator {
     @Override
     void execute(State state) {
+        if (state.getCurrentValue().contains("."))
+            return;
 
+        String currentValStr = String.valueOf(state.getCurrentValue());
+        String concat = currentValStr + ".";
+
+        state.setCurrentValue(concat);
     }
 }
 
 class Backspace extends Operator {
     @Override
     void execute(State state) {
-        double currentValue = state.getCurrentValue();
-        double remainder = currentValue % 10;
-        double newResult = (currentValue - remainder) / 10;
-        state.setCurrentValue(newResult);
+        String currentValStr = state.getCurrentValue();
+        if (currentValStr.length() == 1) {
+            state.setCurrentValue("0");
+        } else {
+            currentValStr = currentValStr.substring(0, currentValStr.length() - 1);
+            state.setCurrentValue(currentValStr);
+        }
     }
 }
