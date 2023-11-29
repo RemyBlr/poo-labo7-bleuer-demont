@@ -13,7 +13,7 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        System.out.println(getClass());
+        System.out.println("java" + getClass().getSimpleName());
 
         do {
             System.out.print("> ");
@@ -21,23 +21,29 @@ public class Calculator {
             processInput(input);
         } while (!input.equalsIgnoreCase("exit"));
 
-        System.out.println("Calculator is exiting.");
+        System.out.println("Bye!");
     }
 
     private void processInput(String input) {
         if (isNumeric(input)) {
-            state.setCurrentValue(input);
             state.getStack().push(input);
+            state.setCurrentValue(input);
             printState();
         } else {
             Operator operator = getOperator(input);
             if (operator != null) {
+                if (state.getStack().size() < 1) {
+                    System.out.println("Need more numbers in the stack");
+                    return;
+                }
+
+                state.getStack().pop();
                 operator.execute(state);
                 String tmp = state.getCurrentValue();
                 state.getStack().push(tmp);
                 printState();
             } else {
-                System.out.println("Please enter a number or a valid operator");
+                System.out.println("Enter a number or a valid operator");
             }
         }
     }
@@ -73,25 +79,18 @@ public class Calculator {
                 return Operator.opposite;
             case "square":
                 return Operator.square;
-            case "enter":
-                return Operator.enter;
             case "clear":
                 return Operator.clear;
-            case "ce":
-                return Operator.clearEntry;
-            case ".":
-                return Operator.point;
-            case "bs":
-                return Operator.backspace;
             case "ms":
                 return Operator.memoryStore;
             case "mr":
                 return Operator.memoryRecall;
+
             case "exit":
                 return new Operator() {
                     @Override
                     void execute(State state) {
-                        // Do nothing for exit command
+                        // For exit command
                     }
                 };
             default:
@@ -100,8 +99,7 @@ public class Calculator {
     }
 
     private void printState() {
-        System.out.println("stack : " + state.getStack());
-        System.out.println("current val : " + state.getCurrentValue());
+        System.out.println(state.getStack());
     }
 
     public static void main(String[] args) {
