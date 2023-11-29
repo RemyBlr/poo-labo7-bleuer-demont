@@ -13,35 +13,50 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        System.out.println("java" + getClass().getSimpleName());
+        System.out.println("java " + getClass().getSimpleName());
 
         do {
             System.out.print("> ");
             input = scanner.nextLine();
-            processInput(input);
+            if (!handleExit(input))
+                processInput(input);
         } while (!input.equalsIgnoreCase("exit"));
+    }
 
-        System.out.println("Bye!");
+    private boolean handleExit(String input) {
+        if (input.equalsIgnoreCase("exit")) {
+            System.out.println("Bye!");
+            return true;
+        }
+        return false;
     }
 
     private void processInput(String input) {
+        // In case of multiple inputs
+        // It's possible to write : 1 2 3 + + => 6
+        if(input.contains(" ")){
+            String[] inputs = input.split(" ");
+            for(String s : inputs){
+                processInput(s);
+            }
+            return;
+        } else if (!input.contains(".") && isNumeric(input)) {
+            input += ".0";
+        }
+
         if (isNumeric(input)) {
             state.getStack().push(input);
             state.setCurrentValue(input);
-            printState();
+            printStack();
         } else {
             Operator operator = getOperator(input);
             if (operator != null) {
-                if (state.getStack().size() < 1) {
-                    System.out.println("Need more numbers in the stack");
-                    return;
-                }
-
                 state.getStack().pop();
+
                 operator.execute(state);
                 String tmp = state.getCurrentValue();
                 state.getStack().push(tmp);
-                printState();
+                printStack();
             } else {
                 System.out.println("Enter a number or a valid operator");
             }
@@ -85,20 +100,12 @@ public class Calculator {
                 return Operator.memoryStore;
             case "mr":
                 return Operator.memoryRecall;
-
-            case "exit":
-                return new Operator() {
-                    @Override
-                    void execute(State state) {
-                        // For exit command
-                    }
-                };
             default:
                 return null;
         }
     }
 
-    private void printState() {
+    private void printStack() {
         System.out.println(state.getStack());
     }
 
