@@ -213,7 +213,11 @@ class Enter extends Operator {
         if (state.getCurrentValue() == "0")
             return;
 
-        state.getStack().push(state.getCurrentValue());
+        if(!state.getCurrentValue().contains("."))
+            state.getStack().push(state.getCurrentValue() + ".0");
+        else
+            state.getStack().push(state.getCurrentValue());
+
         state.setCurrentValue("0");
         state.setOperationPerformed(false);
     }
