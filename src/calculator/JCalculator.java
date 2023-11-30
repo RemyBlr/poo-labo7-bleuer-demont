@@ -44,7 +44,10 @@ public class JCalculator extends JFrame
       jNumber.setText(state.getCurrentValue());
     }
 
-    jStack.setListData(state.getStack().toArrayOfString());
+    if (state.getStack().isEmpty())
+      jStack.setListData(empty);
+    else
+      jStack.setListData(state.getStack().toArrayOfString());
   }
 
   // Ajout d'un bouton dans l'interface et de l'operation associee,
