@@ -16,7 +16,7 @@ abstract class Operator {
     static Clear clear = new Clear();
     static Recpirocal recpirocal = new Recpirocal();
     static Opposite opposite = new Opposite();
-    static squareRoot squareRoot = new squareRoot();
+    static SquareRoot squareRoot = new SquareRoot();
     static Square square = new Square();
     static Backspace backspace = new Backspace();
     static MemoryStore memoryStore = new MemoryStore();
@@ -30,13 +30,21 @@ abstract class Operator {
     }
 
     void binaryOperation(State state, BinaryOperation operation) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         Stack<String> a = state.getStack();
         if (!a.isEmpty()) {
             double operand1 = Double.parseDouble(state.getCurrentValue());
             double operand2 = Double.parseDouble(a.pop());
             double result = operation.apply(operand1, operand2);
-            state.setCurrentValue(String.valueOf(result));
-            state.setOperationPerformed(true);
+            if (result != result) { //vérifie si result n'est pas un nombre
+                state.setError(true);
+            } else {
+                state.setCurrentValue(String.valueOf(result));
+                state.setOperationPerformed(true);
+            }
         } else
             state.setError(true);
     }
@@ -46,8 +54,18 @@ abstract class Operator {
     }
 
     void unaryOperation(State state, UnaryOperation operation) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         double operand = Double.parseDouble(state.getCurrentValue());
         double result = operation.apply(operand);
+        if (result != result) { //vérifie si result n'est pas un nombre
+            state.setError(true);
+        } else {
+            state.setCurrentValue(String.valueOf(result));
+            state.setOperationPerformed(true);
+        }
         state.setCurrentValue(String.valueOf(result));
         state.setOperationPerformed(true);
     }
@@ -103,7 +121,7 @@ class Opposite extends Operator {
     }
 }
 
-class squareRoot extends Operator {
+class SquareRoot extends Operator {
     @Override
     void execute(State state) {
         unaryOperation(state, Math::sqrt);
@@ -127,6 +145,10 @@ class Number extends Operator {
 
     @Override
     void execute(State state) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         if (state.isOperationPerformed()) {
             state.getStack().push(state.getCurrentValue());
             state.setCurrentValue("0");
@@ -144,6 +166,7 @@ class Number extends Operator {
 class ClearEntry extends Operator {
     @Override
     void execute(State state) {
+        state.setError(false);
         state.setCurrentValue("0");
     }
 }
@@ -159,6 +182,10 @@ class Clear extends Operator {
 class MemoryStore extends Operator {
     @Override
     void execute(State state) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         state.setMemory(state.getCurrentValue());
     }
 }
@@ -166,6 +193,10 @@ class MemoryStore extends Operator {
 class MemoryRecall extends Operator {
     @Override
     void execute(State state) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         if (state.getMemory() != "0") // je sais pas si besoin, si envie de stocker 0 pourquoi pas
             state.setCurrentValue(state.getMemory());
     }
@@ -175,6 +206,10 @@ class MemoryRecall extends Operator {
 class Enter extends Operator {
     @Override
     void execute(State state) {
+        if (state.isError()) {
+            return;
+        }
+
         if (state.getCurrentValue() == "0")
             return;
 
@@ -187,6 +222,10 @@ class Enter extends Operator {
 class Point extends Operator {
     @Override
     void execute(State state) {
+        if (state.isError()) {
+            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        }
+
         if (state.getCurrentValue().contains("."))
             return;
 
