@@ -2,6 +2,12 @@ package calculator;
 
 import java.util.Scanner;
 
+/**
+ * Calculator class
+ * Use the Operator class and the State class to create a calculator in the terminal
+ * @author Rémy Bleuer
+ * @author Kilian Demont
+ */
 public class Calculator {
     private State state;
 

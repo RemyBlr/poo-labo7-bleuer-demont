@@ -2,6 +2,14 @@ package calculator;
 
 import util.Stack;
 
+
+/**
+ * State of the calculator
+ * Contains the current value, the stack, the memory and the error state
+ * @author Rémy Bleuer
+ * @author Kilian Demont
+ * @see Stack
+ */
 public class State {
     private String currentValue;
     private Stack<String> stack;
