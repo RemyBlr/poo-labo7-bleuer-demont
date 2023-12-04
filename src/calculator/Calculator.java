@@ -5,6 +5,8 @@ import java.util.Scanner;
 /**
  * Calculator class
  * Use the Operator class and the State class to create a calculator in the terminal
+ * The calculator can do basic operations (+, -, *, /, sqrt, reciprocal, opposite, square)
+ * Some operrations are not useful (point, enter, backspace, etc.)
  * @author Rémy Bleuer
  * @author Kilian Demont
  */

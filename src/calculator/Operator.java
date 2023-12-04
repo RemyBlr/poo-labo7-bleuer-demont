@@ -4,6 +4,14 @@ import util.Stack;
 
 import java.lang.*;
 
+/**
+ * Abstract class for the operators
+ * Contains the binary and unary operations
+ * The binary operations are addition, substraction, multiplication and division
+ * The unary operations are square root, reciprocal, opposite and square
+ * @author Rémy Bleuer
+ * @author Kilian Demont
+ */
 abstract class Operator {
     static Addition addition = new Addition();
     static Substraction substraction = new Substraction();

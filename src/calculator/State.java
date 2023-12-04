@@ -6,6 +6,10 @@ import util.Stack;
 /**
  * State of the calculator
  * Contains the current value, the stack, the memory and the error state
+ * The error state is set to true if an error occurs (division by zero, etc.)
+ * The memory is used to store a value (M+, M-, MR, MC)
+ * The stack is used to store the values of the operations
+ * The current value is the value displayed on the calculator
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Stack

@@ -2,6 +2,8 @@ package calculator;
 
 /**
  * Number operator - add a digit to the current value
+ * Can't be used if an operation has been performed
+ * Can't be used if an error is present
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator
