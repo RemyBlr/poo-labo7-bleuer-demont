@@ -9,7 +9,10 @@ package calculator;
 class Point extends Operator {
     @Override
     void execute(State state) {
-        if (!state.isError() && !state.getCurrentValue().contains(".")) {
+        if (!state.isError() &&
+            !state.getCurrentValue().contains(".") &&
+            !Double.isInfinite(Double.parseDouble(state.getCurrentValue()))) {
+
             state.setCurrentValue(state.getCurrentValue() + ".");
         }
         state.setOperationPerformed(false);

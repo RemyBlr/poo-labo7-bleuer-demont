@@ -10,7 +10,7 @@ class Backspace extends Operator {
     @Override
     void execute(State state) {
         String currentValStr = state.getCurrentValue();
-        if (currentValStr.length() == 1) {
+        if (currentValStr.length() == 1 || Double.isInfinite(Double.parseDouble(currentValStr))) {
             state.setCurrentValue("0");
         } else {
             currentValStr = currentValStr.substring(0, currentValStr.length() - 1);

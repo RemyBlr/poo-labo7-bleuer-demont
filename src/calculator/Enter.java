@@ -9,8 +9,14 @@ package calculator;
 class Enter extends Operator {
     @Override
     void execute(State state) {
-        if (!state.isError() && !state.getCurrentValue().equals("0")) {
-            state.getStack().push(state.getCurrentValue());
+        if (!state.isError() &&
+            !state.getCurrentValue().equals("0") &&
+            !Double.isInfinite(Double.parseDouble(state.getCurrentValue()))) {
+
+            if (!state.getCurrentValue().contains("."))
+                state.getStack().push(state.getCurrentValue() + ".0");
+            else
+                state.getStack().push(state.getCurrentValue());
 
             state.setCurrentValue("0");
             state.setOperationPerformed(false);
