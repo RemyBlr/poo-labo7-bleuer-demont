@@ -9,16 +9,9 @@ package calculator;
 class Point extends Operator {
     @Override
     void execute(State state) {
-        if (state.isError()) {
-            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+        if (!state.isError() && !state.getCurrentValue().contains(".")) {
+            state.setCurrentValue(state.getCurrentValue() + ".");
         }
-
-        if (state.getCurrentValue().contains("."))
-            return;
-
-        String currentValStr = String.valueOf(state.getCurrentValue());
-        String concat = currentValStr + ".";
-
-        state.setCurrentValue(concat);
+        state.setOperationPerformed(false);
     }
 }

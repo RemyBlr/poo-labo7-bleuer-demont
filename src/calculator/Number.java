@@ -17,14 +17,12 @@ class Number extends Operator {
 
     @Override
     void execute(State state) {
-        if (state.isError()) {
-            return; // Ne pas effectuer l'opération si une erreur est déjà présente
-        }
-
-        if (state.isOperationPerformed()) {
-            state.getStack().push(state.getCurrentValue());
-            state.setCurrentValue("0");
-            state.setOperationPerformed(false);
+        if (!state.isError()) {
+            if (state.isOperationPerformed()) {
+                state.getStack().push(state.getCurrentValue());
+                state.setCurrentValue("0");
+                state.setOperationPerformed(false);
+            }
         }
 
         if (state.getCurrentValue().equals("0"))

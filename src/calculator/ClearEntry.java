@@ -5,7 +5,8 @@ package calculator;
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator
- */class ClearEntry extends Operator {
+ */
+class ClearEntry extends Operator {
     @Override
     void execute(State state) {
         state.setError(false);

@@ -10,6 +10,9 @@ package calculator;
 class Opposite extends Operator {
     @Override
     void execute(State state) {
-        unaryOperation(state, operand -> -operand);
+        if(!state.getCurrentValue().equals("0")) {
+            unaryOperation(state, operand -> -operand);
+        }
+        state.setOperationPerformed(false);
     }
 }

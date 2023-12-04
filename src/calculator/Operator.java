@@ -62,7 +62,7 @@ abstract class Operator {
     }
 
     void unaryOperation(State state, UnaryOperation operation) {
-        if (state.isError()) {
+        if (state.isError() || operation == null) {
             return; // Ne pas effectuer l'opération si une erreur est déjà présente
         }
 
@@ -74,8 +74,6 @@ abstract class Operator {
             state.setCurrentValue(String.valueOf(result));
             state.setOperationPerformed(true);
         }
-        state.setCurrentValue(String.valueOf(result));
-        state.setOperationPerformed(true);
     }
 
     interface UnaryOperation {

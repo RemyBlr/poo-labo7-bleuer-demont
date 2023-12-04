@@ -5,22 +5,15 @@ package calculator;
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator
- */class Enter extends Operator {
+ */
+class Enter extends Operator {
     @Override
     void execute(State state) {
-        if (state.isError()) {
-            return;
-        }
-
-        if (state.getCurrentValue() == "0")
-            return;
-
-        if (!state.getCurrentValue().contains("."))
-            state.getStack().push(state.getCurrentValue() + ".0");
-        else
+        if (!state.isError() && !state.getCurrentValue().equals("0")) {
             state.getStack().push(state.getCurrentValue());
 
-        state.setCurrentValue("0");
-        state.setOperationPerformed(false);
+            state.setCurrentValue("0");
+            state.setOperationPerformed(false);
+        }
     }
 }
