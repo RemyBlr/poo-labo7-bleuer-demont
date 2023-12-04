@@ -9,17 +9,26 @@ package calculator;
 class Enter extends Operator {
     @Override
     void execute(State state) {
-        if (!state.isError() &&
-            !state.getCurrentValue().equals("0") &&
-            !Double.isInfinite(Double.parseDouble(state.getCurrentValue()))) {
+        if (state.isError() ||
+            Double.isInfinite(Double.parseDouble(state.getCurrentValue())) ||
+            state.getCurrentValue().equals("0")) {
 
-            if (!state.getCurrentValue().contains("."))
-                state.getStack().push(state.getCurrentValue() + ".0");
-            else
-                state.getStack().push(state.getCurrentValue());
-
-            state.setCurrentValue("0");
-            state.setOperationPerformed(false);
+            return;
         }
+
+        String currentValue = state.getCurrentValue();
+
+        if (!currentValue.equals("0")) {
+            if (currentValue.endsWith(".")) {
+                state.getStack().push(currentValue + "0");
+            } else if (!currentValue.contains(".")) {
+                state.getStack().push(currentValue + ".0");
+            } else {
+                state.getStack().push(currentValue);
+            }
+        }
+
+        state.setCurrentValue("0");
+        state.setOperationPerformed(false);
     }
 }
