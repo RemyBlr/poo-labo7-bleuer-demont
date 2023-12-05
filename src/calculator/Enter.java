@@ -9,23 +9,20 @@ package calculator;
 class Enter extends Operator {
     @Override
     void execute(State state) {
-        if (state.isError() ||
-            Double.isInfinite(Double.parseDouble(state.getCurrentValue())) ||
-            state.getCurrentValue().equals("0")) {
-
+        if (state.isError() || state.getCurrentValue().equals("0")) {
             return;
         }
 
         String currentValue = state.getCurrentValue();
 
-        if (!currentValue.equals("0")) {
-            if (currentValue.endsWith(".")) {
-                state.getStack().push(currentValue + "0");
-            } else if (!currentValue.contains(".")) {
-                state.getStack().push(currentValue + ".0");
-            } else {
-                state.getStack().push(currentValue);
-            }
+        double parsedValue = Double.parseDouble(currentValue);
+
+        if (Double.isInfinite(parsedValue)) {
+            state.getStack().push(currentValue);
+        } else {
+            String formattedValue = currentValue.endsWith(".") ? currentValue + "0" : currentValue;
+            formattedValue = !formattedValue.contains(".") ? formattedValue + ".0" : formattedValue;
+            state.getStack().push(formattedValue);
         }
 
         state.setCurrentValue("0");
