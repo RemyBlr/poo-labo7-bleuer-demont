@@ -1,7 +1,7 @@
 package calculator;
 
 /**
- * Backspace operator (⌫) - delete the last digit of the current value
+ * Backspace operator (<=) - delete the last digit of the current value
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator

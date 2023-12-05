@@ -7,7 +7,7 @@ package calculator;
  * @author Kilian Demont
  * @see Operator
  */
-class Substraction extends Operator {
+class Subtraction extends Operator {
     @Override
     void execute(State state) {
         binaryOperation(state, (operand1, operand2) -> operand1 - operand2);

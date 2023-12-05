@@ -10,7 +10,7 @@ class MemoryStore extends Operator {
     @Override
     void execute(State state) {
         if (state.isError()) {
-            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+            return;
         }
 
         state.setMemory(state.getCurrentValue());

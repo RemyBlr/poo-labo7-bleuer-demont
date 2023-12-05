@@ -6,13 +6,13 @@ import java.util.Scanner;
  * Calculator class
  * Use the Operator class and the State class to create a calculator in the terminal
  * The calculator can do basic operations (+, -, *, /, sqrt, reciprocal, opposite, square)
- * Some operrations are not useful (point, enter, backspace, etc.)
+ * Some operations are not useful (point, enter, backspace, etc.)
  *
  * @author Rémy Bleuer
  * @author Kilian Demont
  */
 public class Calculator {
-    private State state;
+    private final State state;
 
     public Calculator() {
         this.state = new State();
@@ -78,7 +78,7 @@ public class Calculator {
             return false;
         }
         try {
-            double d = Double.parseDouble(strNum);
+            Double.parseDouble(strNum);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -86,32 +86,20 @@ public class Calculator {
     }
 
     private Operator getOperator(String input) {
-        switch (input.toLowerCase()) {
-            case "+":
-                return Operator.addition;
-            case "-":
-                return Operator.substraction;
-            case "*":
-                return Operator.multiplication;
-            case "/":
-                return Operator.division;
-            case "sqrt":
-                return Operator.squareRoot;
-            case "reciprocal":
-                return Operator.recpirocal;
-            case "opposite":
-                return Operator.opposite;
-            case "square":
-                return Operator.square;
-            case "clear":
-                return Operator.clear;
-            case "ms":
-                return Operator.memoryStore;
-            case "mr":
-                return Operator.memoryRecall;
-            default:
-                return null;
-        }
+        return switch (input.toLowerCase()) {
+            case "+" -> Operator.addition;
+            case "-" -> Operator.subtraction;
+            case "*" -> Operator.multiplication;
+            case "/" -> Operator.division;
+            case "sqrt" -> Operator.squareRoot;
+            case "reciprocal" -> Operator.reciprocal;
+            case "opposite" -> Operator.opposite;
+            case "square" -> Operator.square;
+            case "clear" -> Operator.clear;
+            case "ms" -> Operator.memoryStore;
+            case "mr" -> Operator.memoryRecall;
+            default -> null;
+        };
     }
 
     private void printStack() {

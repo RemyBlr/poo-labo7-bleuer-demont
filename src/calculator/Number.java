@@ -9,7 +9,7 @@ package calculator;
  * @see Operator
  */
 class Number extends Operator {
-    private String value;
+    private final String value;
 
     public Number(String value) {
         this.value = value;

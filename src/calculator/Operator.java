@@ -15,7 +15,7 @@ import java.lang.*;
  */
 abstract class Operator {
     static Addition addition = new Addition();
-    static Substraction substraction = new Substraction();
+    static Subtraction subtraction = new Subtraction();
     static Multiplication multiplication = new Multiplication();
     static Division division = new Division();
     static Enter enter = new Enter();
@@ -23,7 +23,7 @@ abstract class Operator {
     static Point point = new Point();
     static ClearEntry clearEntry = new ClearEntry();
     static Clear clear = new Clear();
-    static Recpirocal recpirocal = new Recpirocal();
+    static Reciprocal reciprocal = new Reciprocal();
     static Opposite opposite = new Opposite();
     static SquareRoot squareRoot = new SquareRoot();
     static Square square = new Square();
@@ -69,6 +69,11 @@ abstract class Operator {
         double apply(double operand1, double operand2);
     }
 
+    /**
+     * Performs a unary operation on the given state using the provided operation.
+     * @param state     The current state of the calculator.
+     * @param operation The unary operation to be performed.
+     */
     void unaryOperation(State state, UnaryOperation operation) {
         if (state.isError() || operation == null) {
             return; // Ne pas effectuer l'opération si une erreur est déjà présente
@@ -93,5 +98,9 @@ abstract class Operator {
         double apply(double operand);
     }
 
+    /**
+     * Executes the operator on the given state.
+     * @param state The current state of the calculator.
+     */
     abstract void execute(State state);
 }

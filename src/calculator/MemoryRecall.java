@@ -10,10 +10,10 @@ class MemoryRecall extends Operator {
     @Override
     void execute(State state) {
         if (state.isError()) {
-            return; // Ne pas effectuer l'opération si une erreur est déjà présente
+            return;
         }
 
-        if (!state.getMemory().equals("0")) // je sais pas si besoin, si envie de stocker 0 pourquoi pas
+        if (!state.getMemory().equals("0"))
             state.setCurrentValue(state.getMemory());
     }
 }
