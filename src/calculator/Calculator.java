@@ -14,10 +14,16 @@ import java.util.Scanner;
 public class Calculator {
     private final State state;
 
+    /**
+     * Constructs a Calculator object with an initial state.
+     */
     public Calculator() {
         this.state = new State();
     }
 
+    /**
+     * Runs the calculator, allowing the user to input commands in the terminal.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -32,6 +38,12 @@ public class Calculator {
         } while (!input.equalsIgnoreCase("exit"));
     }
 
+    /**
+     * Checks if the input is "exit" and handles the exit scenario.
+     *
+     * @param input The user input.
+     * @return True if the input is "exit," false otherwise.
+     */
     private boolean handleExit(String input) {
         if (input.equalsIgnoreCase("exit")) {
             System.out.println("Bye!");
@@ -40,6 +52,11 @@ public class Calculator {
         return false;
     }
 
+    /**
+     * Processes the user input by parsing and executing commands.
+     *
+     * @param input The user input.
+     */
     private void processInput(String input) {
         // In case of multiple inputs
         // It's possible to write : 1 2 3 + + => 6
@@ -72,7 +89,14 @@ public class Calculator {
         }
     }
 
-    //https://www.baeldung.com/java-check-string-number
+    /**
+     * Check if a String is Numeric.
+     * This code comes from : https://www.baeldung.com/java-check-string-number
+     *
+     * @param strNum The String to check.
+     * @return true if the String is numeric, false otherwise.
+     *
+     */
     private boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -85,6 +109,13 @@ public class Calculator {
         return true;
     }
 
+
+    /**
+     * Gets the Operator corresponding to the input string.
+     *
+     * @param input The input string representing an operator.
+     * @return The Operator object or null if the input is not a valid operator.
+     */
     private Operator getOperator(String input) {
         return switch (input.toLowerCase()) {
             case "+" -> Operator.addition;
@@ -102,10 +133,18 @@ public class Calculator {
         };
     }
 
+    /**
+     * Prints the current stack state to the terminal.
+     */
     private void printStack() {
         System.out.println(state.getStack());
     }
 
+    /**
+     * Main method to start the calculator application in the terminal.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         calculator.run();
