@@ -22,7 +22,9 @@ public class State {
     private String memory;
     private boolean isOperationPerformed;
 
-    // Constructeur, getters, setters, etc.
+    /**
+     * Default constructor initializes the state with default values.
+     */
     public State(){
         this.currentValue = "0";
         this.stack = new Stack<>();
@@ -30,54 +32,112 @@ public class State {
         this.memory = "0";
     }
 
+    /**
+     * Constructor that allows initializing the state with specific values.
+     *
+     * @param currentValue The initial current value.
+     * @param stack        The initial stack.
+     */
     public State(String currentValue, Stack<String> stack){
         this.currentValue = currentValue;
         this.stack = stack;
         this.isError = false;
     }
 
-    String getCurrentValue(){
+    /**
+     * Get the current value.
+     *
+     * @return The current value.
+     */
+    public String getCurrentValue(){
         return currentValue;
     }
 
-    void setCurrentValue(String currentValue){
+    /**
+     * Set the current value.
+     *
+     * @param currentValue The new current value.
+     */
+    protected void setCurrentValue(String currentValue){
         this.currentValue = currentValue;
     }
 
+    /**
+     * Get the memory value.
+     *
+     * @return The memory value.
+     */
     public String getMemory() {
         return memory;
     }
 
-    public void setMemory(String memory) {
+    /**
+     * Set the memory value.
+     *
+     * @param memory The new memory value.
+     */
+    protected void setMemory(String memory) {
         this.memory = memory;
     }
 
+    /**
+     * Check if an operation has been performed.
+     *
+     * @return True if an operation has been performed, false otherwise.
+     */
     public boolean isOperationPerformed() {
         return isOperationPerformed;
     }
 
-    public void setOperationPerformed(boolean isOperationPerformed) {
+    /**
+     * Set the operation performed status.
+     *
+     * @param isOperationPerformed The new operation performed status.
+     */
+    protected void setOperationPerformed(boolean isOperationPerformed) {
         this.isOperationPerformed = isOperationPerformed;
     }
 
+    /**
+     * Get the stack.
+     *
+     * @return The stack.
+     */
     public Stack<String> getStack() {
         return stack;
     }
 
-    public void setStack(Stack<String> stack) {
+    /**
+     * Set the stack.
+     *
+     * @param stack The new stack.
+     */
+    protected void setStack(Stack<String> stack) {
         this.stack = stack;
     }
 
+    /**
+     * Check if an error has occurred.
+     *
+     * @return True if an error has occurred, false otherwise.
+     */
     public boolean isError() {
         return isError;
     }
 
-    public void setError(boolean isError) {
+    /**
+     * Set the error status.
+     *
+     * @param isError The new error status.
+     */
+    protected void setError(boolean isError) {
         this.isError = isError;
     }
 
+    /**
+     * Clears the calculator state, resetting values to default.
+     */
     public void clear() {
-        // Logique pour réinitialiser l'état
         this.currentValue = "0";
         this.stack.clear();
         this.isError = false;

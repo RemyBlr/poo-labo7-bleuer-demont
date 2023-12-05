@@ -1,8 +1,9 @@
 package calculator;
 
 /**
- * Multiplication operator (*) - multiply the top of the stack by the current value
+ * Multiplication operator (*) – multiply the top of the stack by the current value
  * Use the binaryOperation method from Operator class
+ *
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator

@@ -13,11 +13,28 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+/**
+ * The JCalculator class represents a simple calculator Graphical User
+ * Interface (GUI).
+ * It extends JFrame and provides a graphical user interface with buttons for
+ * numeric input, arithmetic operations, and memory operations.
+ * The calculator supports basic arithmetic operations, memory storage, and retrieval.
+ * The user can interact with the calculator by clicking on buttons.
+ * The current value, stack, and memory are displayed on the GUI.
+ * The calculator uses the State class to manage its state.
+ * This class has been largely supplied, with only a few additions.
+ *
+ * @author Rémy Bleuer
+ * @author Kilian Demont
+ * @see State
+ * @see Operator
+ */
 public class JCalculator extends JFrame
 {
   // Tableau representant une pile vide
   private static final String[] empty = { "< empty stack >" };
 
+  // État de la calculatrice
   private State state = new State();
 
   // Zone de texte contenant la valeur introduite ou resultat courant

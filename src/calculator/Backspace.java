@@ -1,12 +1,18 @@
 package calculator;
 
 /**
- * Backspace operator (<=) - delete the last digit of the current value
+ * Backspace operator (<=) – delete the last digit of the current value
+ *
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Operator
  */
 class Backspace extends Operator {
+    /**
+     * Executes the Backspace operation by deleting the last digit of the current value.
+     *
+     * @param state The current state of the calculator.
+     */
     @Override
     void execute(State state) {
         String currentValStr = state.getCurrentValue();
