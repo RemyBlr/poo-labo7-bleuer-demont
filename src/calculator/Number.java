@@ -18,7 +18,7 @@ class Number extends Operator {
     @Override
     void execute(State state) {
         if (!state.isError()) {
-            if (state.isOperationPerformed()) {
+            if (state.isOperationPerformed() && !state.getCurrentValue().equals("0")) {
                 state.getStack().push(state.getCurrentValue());
                 state.setCurrentValue("0");
                 state.setOperationPerformed(false);
