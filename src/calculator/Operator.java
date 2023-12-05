@@ -71,7 +71,12 @@ abstract class Operator {
         if (result != result) { //vérifie si result n'est pas un nombre
             state.setError(true);
         } else {
-            state.setCurrentValue(String.valueOf(result));
+            String s = String.valueOf(result);
+            // remove trailing zeros
+            // https://stackoverflow.com/questions/14984664/remove-trailing-zero-in-java
+            s = s.contains(".") ? s.replaceAll("0*$","").replaceAll("\\.$","") : s;
+
+            state.setCurrentValue(s);
             state.setOperationPerformed(true);
         }
     }
