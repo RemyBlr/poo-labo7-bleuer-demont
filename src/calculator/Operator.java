@@ -9,6 +9,7 @@ import java.lang.*;
  * Contains the binary and unary operations
  * The binary operations are addition, substraction, multiplication and division
  * The unary operations are square root, reciprocal, opposite and square
+ *
  * @author Rémy Bleuer
  * @author Kilian Demont
  */
@@ -37,6 +38,13 @@ abstract class Operator {
         }
     }
 
+
+    /**
+     * Performs a binary operation on the given state using the provided operation.
+     *
+     * @param state     The current state of the calculator.
+     * @param operation The binary operation to be performed.
+     */
     void binaryOperation(State state, BinaryOperation operation) {
         if (state.isError()) {
             return; // Ne pas effectuer l'opération si une erreur est déjà présente
@@ -47,7 +55,7 @@ abstract class Operator {
             double operand1 = Double.parseDouble(state.getCurrentValue());
             double operand2 = Double.parseDouble(a.pop());
             double result = operation.apply(operand1, operand2);
-            if (result != result) { //vérifie si result n'est pas un nombre
+            if (Double.isNaN(result)) { //vérifie si result n'est pas un nombre
                 state.setError(true);
             } else {
                 state.setCurrentValue(String.valueOf(result));
@@ -68,7 +76,7 @@ abstract class Operator {
 
         double operand = Double.parseDouble(state.getCurrentValue());
         double result = operation.apply(operand);
-        if (result != result) { //vérifie si result n'est pas un nombre
+        if (Double.isNaN(result)) { //vérifie si result n'est pas un nombre
             state.setError(true);
         } else {
             String s = String.valueOf(result);

@@ -13,8 +13,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-//import java.awt.event.*;
-
 public class JCalculator extends JFrame
 {
   // Tableau representant une pile vide
@@ -63,7 +61,7 @@ public class JCalculator extends JFrame
     b.addActionListener((e) -> {
 	operator.execute(state);
 	update();
-      });
+    });
   }
 
   public JCalculator() 

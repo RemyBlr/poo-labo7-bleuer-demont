@@ -10,6 +10,7 @@ import util.Stack;
  * The memory is used to store a value (M+, M-, MR, MC)
  * The stack is used to store the values of the operations
  * The current value is the value displayed on the calculator
+ *
  * @author Rémy Bleuer
  * @author Kilian Demont
  * @see Stack
@@ -55,8 +56,8 @@ public class State {
         return isOperationPerformed;
     }
 
-    public void setOperationPerformed(boolean operationPerformed) {
-        this.isOperationPerformed = operationPerformed;
+    public void setOperationPerformed(boolean isOperationPerformed) {
+        this.isOperationPerformed = isOperationPerformed;
     }
 
     public Stack<String> getStack() {

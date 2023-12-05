@@ -13,7 +13,7 @@ class MemoryRecall extends Operator {
             return; // Ne pas effectuer l'opération si une erreur est déjà présente
         }
 
-        if (state.getMemory() != "0") // je sais pas si besoin, si envie de stocker 0 pourquoi pas
+        if (!state.getMemory().equals("0")) // je sais pas si besoin, si envie de stocker 0 pourquoi pas
             state.setCurrentValue(state.getMemory());
     }
 }

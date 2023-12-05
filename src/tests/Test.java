@@ -3,6 +3,16 @@ package tests;
 import util.Stack;
 import java.util.Arrays;
 
+/**
+ * This class provides a test program for the Stack class.
+ * It demonstrates the basic operations of pushing, popping,
+ * and clearing elements in a stack, as well as obtaining
+ * array representation and using an iterator.
+ *
+ * @author Rémy Bleuer
+ * @author Kilian Demont
+ *
+ */
 public class Test {
     public static void main(String[] args) {
         Stack<Integer> stack = new Stack<>();
@@ -32,5 +42,11 @@ public class Test {
         for (Integer item : stack) {
             System.out.print(item + " ");
         }
+
+        // Clear the stack
+        stack.clear();
+
+        // Print the stack after clearing
+        System.out.println("\nStack after clearing: " + stack);
     }
 }
